@@ -55,13 +55,11 @@ func main() {
 
 		message = strings.TrimSpace(message) // Hapus whitespace di awal/akhir pesan
 
-		if message == "" {
+		var errMsg error = nil
 
-			continue // Kembali ke awal loop
-		} else {
-			_, err = conn.Write([]byte(message + "\n"))
-		}
-		if err != nil {
+		_, errMsg = conn.Write([]byte(message + "\n"))
+
+		if errMsg != nil {
 			fmt.Println("")
 			return
 		}
