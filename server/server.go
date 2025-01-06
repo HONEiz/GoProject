@@ -30,22 +30,11 @@ func main() {
 			go handleClient(conn)
 		}
 	}
-	// reader := bufio.NewReader(conn)
-
-	// fmt.Println("Waiting for message...")
-	// message, err := reader.ReadString('\n')
-	// if err != nil {
-	// 	fmt.Fprintf(os.Stderr, "Failed to read message!")
-	// 	os.Exit(1)
-	// } else {
-	// 	fmt.Println("The message has been received!")
-	// }
-
-	// fmt.Fprintf(conn, "Echo: %s", message)
-	// fmt.Println("The message has been echoed back!")
 }
 
+// Handle koneksi client
 func handleClient(conn net.Conn) {
+	// Membaca nama client
 	reader := bufio.NewReader(conn)
 	name, err := reader.ReadString('\n')
 	if err != nil {
@@ -53,6 +42,7 @@ func handleClient(conn net.Conn) {
 		return
 	}
 
+	// Menyimpan nama client
 	name = strings.TrimSpace(name)
 	mutex.Lock()
 	clients[conn] = name
@@ -91,3 +81,6 @@ func broadcast(message string, sender net.Conn) {
 	}
 	mutex.Unlock()
 }
+
+// Sumber referensi:
+// https://www.kelche.co/blog/go/socket-programming/
