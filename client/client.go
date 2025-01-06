@@ -19,6 +19,7 @@ func main() {
 
 	connReader := bufio.NewReader(conn)
 	localReader := bufio.NewReader(os.Stdin)
+
 	fmt.Print("Masukkan nama anda : ")
 	nama, err := localReader.ReadString('\n')
 	if err != nil {
@@ -36,6 +37,7 @@ func main() {
 		fmt.Println("Nama " + nama + " terkirim")
 	}
 
+	// Membaca pesan
 	go func() {
 		for {
 			message, err := connReader.ReadString('\n')
@@ -48,6 +50,7 @@ func main() {
 		}
 	}()
 
+	// Mengirim pesan
 	for {
 		fmt.Print("Masukkan pesan: ")
 		message, _ := localReader.ReadString('\n')
